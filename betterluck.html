@@ -219,6 +219,11 @@ const CONFIG = {
   // ⏳ مدة صلاحية الجائزة بالأيام
   expiryDays: 14,
 
+  // 🔐 السيرفر (Supabase) — عبّي القيمتين بعد ما تسوي المشروع (شوف الدليل)
+  //    إذا خليتهن فاضيتين، الصفحة تشتغل بوضع محلي (كود لكل جهاز) بدون سيرفر
+  supabaseUrl: "https://dnopdbofxtinuwypycaf.supabase.co",
+  supabaseKey: "sb_publishable_gsBB43RAh6aiUbIBzhc5oA_96Uf9FT3",
+
   // 🎁 الجوائز — عدّل الاسم والوصف والأيقونة وقت ما تريد
   prizes: {
     "1": { name: "ساعة بلايستيشن مجاناً", desc: "ساعة لعب كاملة على البلايستيشن داخل المحل", icon: "🎮" },
@@ -263,84 +268,142 @@ if(NOWIN){
   document.title = 'حظ أوفر — ' + CONFIG.brand;
 }
 
-/* ------- الحفظ بجهاز الزبون (تذكير) ------- */
+/* ------- إعداد الكاش والجهاز ------- */
 const STORE_KEY = 'fox_prizes_v1';
 function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
 function save(d){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(d)); }catch(e){} }
-function randCode(){ const s='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let r=''; for(let i=0;i<4;i++) r+=s[Math.floor(Math.random()*s.length)]; return r; }
-
-let db = load();
-let rec = null, exp = null, firstTime = false;
-if(!NOWIN){
-  rec = db[pid];
-  firstTime = !rec;
-  if(!rec){
-    rec = { code: 'FOX-'+pid+'-'+randCode(), savedAt: Date.now(), used:false };
-    db[pid] = rec; save(db);
-  }
-  // عرض الكود
-  document.getElementById('code').innerHTML = rec.code + '<small>اعرض هذا الكود عند الكاونتر لاستلام جائزتك</small>';
-  // تاريخ الانتهاء
-  exp = new Date(rec.savedAt + CONFIG.expiryDays*86400000);
-  document.getElementById('expiry').textContent = '⏳ صالحة لمدة ' + CONFIG.expiryDays + ' يوم · تنتهي ' + exp.toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
+function randCode(){ const s='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let r=''; for(let i=0;i<5;i++) r+=s[Math.floor(Math.random()*s.length)]; return r; }
+function deviceId(){
+  let d; try{ d=localStorage.getItem('fox_device_v1'); }catch(e){}
+  if(!d){ d='D'+Date.now().toString(36)+randCode()+randCode(); try{localStorage.setItem('fox_device_v1',d);}catch(e){} }
+  return d;
+}
+const SB = !!(CONFIG.supabaseUrl && CONFIG.supabaseKey);
+async function sbRpc(fn, body){
+  const base = CONFIG.supabaseUrl.replace(/\/+$/,'');
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), 8000);
+  try{
+    const r = await fetch(base+'/rest/v1/rpc/'+fn, {
+      method:'POST',
+      headers:{'apikey':CONFIG.supabaseKey,'Authorization':'Bearer '+CONFIG.supabaseKey,'Content-Type':'application/json'},
+      body: JSON.stringify(body),
+      signal: ctrl.signal
+    });
+    if(!r.ok){ throw new Error('rpc '+fn+' '+r.status); }
+    return await r.json();
+  } finally { clearTimeout(t); }
 }
 
-// حالة مستخدمة / لافتة الرجوع
-function applyUsed(){
-  if(rec.used){
+let db = load();
+let rec = null;            // كاش محلي {code, savedAt, used}
+let currentCode = null;
+const codeEl = document.getElementById('code');
+const SMALL = '<small>اعرض هذا الكود عند الكاونتر لاستلام جائزتك</small>';
+
+function showCode(code){ codeEl.innerHTML = code + SMALL; }
+function setUsedUI(used){
+  if(used){
     document.body.classList.add('is-used');
     document.getElementById('usedBadge').classList.add('show');
-    document.getElementById('usedBtn').textContent = 'إلغاء التعليم';
     document.getElementById('ribbon').textContent = '✅ تم الاستلام';
   }else{
     document.body.classList.remove('is-used');
     document.getElementById('usedBadge').classList.remove('show');
-    document.getElementById('usedBtn').textContent = 'علّمها مستخدمة';
     document.getElementById('ribbon').textContent = '🏆 جائزتك';
   }
 }
-if(!NOWIN){
-  applyUsed();
-  // إذا رجع لنفس الجائزة (مو أول مرة) وما استخدمها → ذكّره
-  if(!firstTime && !rec.used){ document.getElementById('returning').classList.add('show'); }
+function showExhausted(){
+  document.querySelector('.code-box').style.display='none';
+  document.getElementById('usedBtn').style.display='none';
+  document.getElementById('remindBtn').style.display='none';
+  document.getElementById('expiry').style.display='none';
+  document.querySelector('.mabrook').textContent = 'يا خسارة 😅';
+  document.querySelector('.sub').textContent = 'كل أكواد هالجائزة انوزعت';
+  document.getElementById('prizeIcon').textContent = '⌛';
+  document.getElementById('prizeName').innerHTML = '<span class="accent">خلصت جوائز هالباركود</span>';
+  document.getElementById('prizeDesc').textContent = 'انتهت أكواد هذه الجائزة. رجعلنا بالسحب الجاي 🍀';
+  document.getElementById('ribbon').textContent = '— انتهت —';
+}
+
+async function initCode(){
+  if(NOWIN) return;
+  const dev = deviceId();
+  document.getElementById('expiry').textContent = '⏳ صالحة لمدة ' + CONFIG.expiryDays + ' يوم من الاستلام';
+  if(SB){
+    codeEl.innerHTML = '⏳ جاري تحضير كودك…';
+    try{
+      const res = await sbRpc('claim_code', { p_prize: pid, p_device: dev });
+      if(!res || !res.code){ showExhausted(); return; }
+      currentCode = res.code;
+      showCode(currentCode);
+      setUsedUI(res.status === 'redeemed');
+      rec = { code: currentCode, savedAt: Date.now(), used: res.status==='redeemed' };
+      db[pid]=rec; save(db);
+      return;
+    }catch(e){ /* فشل الاتصال → ننزل للكاش/المحلي */ }
+  }
+  // وضع محلي (بدون سيرفر أو عند فشل الاتصال): كود ثابت لكل جهاز
+  rec = db[pid];
+  if(!rec){ rec = { code:'FOX-'+pid+'-'+randCode(), savedAt:Date.now(), used:false }; db[pid]=rec; save(db); }
+  currentCode = rec.code;
+  showCode(currentCode);
+  setUsedUI(rec.used);
 }
 
 /* ------- الأزرار ------- */
 document.getElementById('mapBtn').onclick = ()=> window.open(CONFIG.mapsUrl,'_blank');
+document.getElementById('remindBtn').onclick = ()=>{ downloadICS(); toast('انحفظت بجهازك ✓ ونزّلنا تذكير بالتقويم'); };
 
-document.getElementById('usedBtn').onclick = ()=>{
-  rec.used = !rec.used; rec.usedAt = rec.used?Date.now():null;
-  db[pid]=rec; save(db); applyUsed();
-  document.getElementById('returning').classList.remove('show');
-  toast(rec.used?'تم — انحفظت كمستخدمة ✓':'رجعناها فعّالة');
+// زر الموظف: تأكيد الاستخدام عبر PIN
+const usedBtn = document.getElementById('usedBtn');
+usedBtn.textContent = 'تأكيد الاستخدام (للموظف)';
+const pinWrap = document.createElement('div');
+pinWrap.style.cssText = 'display:none;gap:8px;margin-top:12px;justify-content:center';
+pinWrap.innerHTML = '<input id="pin" inputmode="numeric" placeholder="PIN الموظف" style="width:130px;text-align:center;font-family:inherit;font-weight:800;font-size:16px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);color:#fff"><button id="pinOk" class="btn btn-primary" style="width:auto;padding:12px 18px;font-size:15px">تأكيد</button>';
+usedBtn.parentNode.appendChild(pinWrap);
+usedBtn.onclick = ()=>{ pinWrap.style.display = (pinWrap.style.display==='flex')?'none':'flex'; };
+pinWrap.querySelector('#pinOk').onclick = async ()=>{
+  const pin = pinWrap.querySelector('#pin').value.trim();
+  if(!pin){ toast('اكتب الـ PIN'); return; }
+  if(!currentCode){ toast('ما اكو كود'); return; }
+  if(SB){
+    try{
+      const res = await sbRpc('redeem_code', { p_code: currentCode, p_pin: pin });
+      if(res==='ok'){ setUsedUI(true); pinWrap.style.display='none'; toast('تم الاستخدام ✓'); if(rec){rec.used=true; db[pid]=rec; save(db);} }
+      else if(res==='already'){ setUsedUI(true); pinWrap.style.display='none'; toast('الكود مستخدم من قبل'); }
+      else if(res==='badpin'){ toast('PIN غلط'); }
+      else{ toast('كود غير موجود'); }
+    }catch(e){ toast('تعذّر الاتصال بالسيرفر'); }
+  }else{
+    setUsedUI(true); pinWrap.style.display='none'; if(rec){rec.used=true; db[pid]=rec; save(db);} toast('تم الاستخدام ✓');
+  }
 };
 
-document.getElementById('remindBtn').onclick = ()=>{
-  db[pid]=rec; save(db);
-  downloadICS();
-  toast('انحفظت بجهازك ✓ ونزّلنا تذكير بالتقويم');
-};
+initCode();
 
 /* ------- تذكير بالتقويم (.ics) — يشتغل على أي جوال ------- */
 function pad(n){return String(n).padStart(2,'0')}
 function fmt(d){return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+'00Z'}
 function downloadICS(){
+  const theCode = currentCode || 'FOX';
   const start = new Date(Date.now()+2*86400000); start.setHours(18,0,0,0);
   const end = new Date(start.getTime()+3600000);
+  const expTxt = new Date(Date.now()+CONFIG.expiryDays*86400000).toLocaleDateString('ar-EG');
   const lines = [
     'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//FoxGaming//Prize//AR','CALSCALE:GREGORIAN','BEGIN:VEVENT',
-    'UID:'+rec.code+'@foxgaming',
+    'UID:'+theCode+'@foxgaming',
     'DTSTAMP:'+fmt(new Date()),
     'DTSTART:'+fmt(start),'DTEND:'+fmt(end),
     'SUMMARY:🦊 استخدم جائزتك: '+prize.name+' — '+CONFIG.brand,
-    'DESCRIPTION:كودك '+rec.code+' · اعرضه عند الكاونتر. الجائزة تنتهي '+exp.toLocaleDateString('ar-EG'),
+    'DESCRIPTION:كودك '+theCode+' · اعرضه عند الكاونتر. الجائزة تنتهي '+expTxt,
     'LOCATION:'+CONFIG.brand,
     'BEGIN:VALARM','TRIGGER:-PT1H','ACTION:DISPLAY','DESCRIPTION:تذكير جائزتك من Fox','END:VALARM',
     'END:VEVENT','END:VCALENDAR'
   ];
   const blob = new Blob([lines.join('\r\n')],{type:'text/calendar'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-  a.download='Fox-Prize-'+rec.code+'.ics'; document.body.appendChild(a); a.click(); a.remove();
+  a.download='Fox-Prize-'+theCode+'.ics'; document.body.appendChild(a); a.click(); a.remove();
 }
 
 /* ------- Toast ------- */
