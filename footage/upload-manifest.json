@@ -15,8 +15,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/315971ed-5b50-42b1-b222-de1809ee70ca.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "dc21c1d7-2e58-44fe-bee8-563ba537bb5f",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "eb074524d965610a4ec85d144febd3d26de3a293acecab190a031abc51987128",
+      "bytes": 67253241,
+      "duration_s": 4.004,
+      "project_status": "uploaded"
     },
     {
       "n": 2,
@@ -25,8 +28,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/4256e357-1821-4283-bbab-5902ee507d27.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "18fb106b-63c8-46b2-a217-03f3d2c6692a",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "0ae67bb21e6395089204eaae1b6e6383adb2782e4449e299ff4c5e57d35649b3",
+      "bytes": 67253747,
+      "duration_s": 6.006,
+      "project_status": "uploaded"
     },
     {
       "n": 3,
@@ -35,8 +41,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/32b70a82-45f1-4628-9e0c-941f871bb987.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "66706a05-2f20-4bf2-b504-7c8ad4e8a523",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "30e10bd007bb30490f9a69016760c3d8a15a4859160001d754d371445b051b02",
+      "bytes": 134363495,
+      "duration_s": 9.5095,
+      "project_status": "uploaded"
     },
     {
       "n": 4,
@@ -45,8 +54,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/ae0d24f5-ab13-446e-b081-3d1c2e564bde.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "d9e8ee91-4c9b-4f0a-8965-cc879dab7cfc",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "8eca86d3f470b62e8b574c2db3a2df6152a79f069229a9f8f56826c282e3499a",
+      "bytes": 67254545,
+      "duration_s": 9.009,
+      "project_status": "uploaded"
     },
     {
       "n": 5,
@@ -55,8 +67,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/46bad6da-a911-4224-9f2f-98f83b07bb7f.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "3c396dfd-4215-47b4-8f80-fd24a7a4b4b3",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "1467ad31502786706bd35b0cbfeda26e45148ed7dd5bfe28be499b7062bc2f86",
+      "bytes": 67254379,
+      "duration_s": 8.5085,
+      "project_status": "uploaded"
     },
     {
       "n": 6,
@@ -65,8 +80,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/20345c0b-de3e-44e7-8366-4f80ab908921.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "c30754d9-b74e-4a60-adab-ebd7010580ee",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "8d1e75114cf8362702a5c86343b18e9c2a59f7292a95460a870f9225f1d2bf09",
+      "bytes": 67252737,
+      "duration_s": 2.002,
+      "project_status": "uploaded"
     },
     {
       "n": 7,
@@ -75,8 +93,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/431a9413-dafe-4a12-b940-b71ec45b8bb5.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "9556976c-76cd-4429-b939-37aeb0702d4f",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "bf0c12c1dc92a3517d906015559da26e41e7d2f763bcc01ef0083aaab5f1b71c",
+      "bytes": 67253371,
+      "duration_s": 4.5045,
+      "project_status": "uploaded"
     },
     {
       "n": 8,
@@ -85,8 +106,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/60908f1b-896b-465b-9915-488a44b0808a.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "4d65b1f2-ac61-4b5a-aa81-53191d3b95dd",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "129895b0d8f78032a1db2224d52bc27c52c316b832fba13b85756dc5dd255299",
+      "bytes": 134364879,
+      "duration_s": 15.015,
+      "project_status": "uploaded"
     },
     {
       "n": 9,
@@ -95,8 +119,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/f22b883a-b4a5-4107-ae79-55adcc12099d.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "8f22268b-91b1-41a2-a12a-137dd27ffa65",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "68c7fedd69fa10d85e29d7b592a8c3798d151355df978becabbf7ae6204ea6ba",
+      "bytes": 67254379,
+      "duration_s": 8.5085,
+      "project_status": "uploaded"
     },
     {
       "n": 10,
@@ -105,8 +132,11 @@
       "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/43a4690a-f6b7-4ee8-b0ca-841177f31dd9.mp4",
       "uploaded_at_utc": "2026-11-10",
       "project_placement_id": "3ededa2f-263e-4757-8784-b1596c55b63e",
-      "sandbox_verified": false,
-      "sha256": null
+      "sandbox_verified": true,
+      "sha256": "3437770f95bd2cb5a917e342061ad8c4f6d426f711aab1a0381d635fc0cc6d05",
+      "bytes": 67254127,
+      "duration_s": 7.5075,
+      "project_status": "uploaded"
     }
   ],
   "unassigned_library_videos": [
@@ -120,5 +150,16 @@
       "filename": null,
       "note": "Found in library, filename unknown. User asked to use it as a generation reference; not added to project."
     }
-  ]
+  ],
+  "source_spec": {
+    "video": "H.264 High, 1920x1080, 23.976 fps (24000/1001), yuvj420p, ~50 Mbps",
+    "audio": "LPCM s16be 48 kHz stereo",
+    "container": "MP4 (camera-original)"
+  },
+  "verification": {
+    "date": "2026-11-10",
+    "method": "Downloaded each media URL into Higgsfield sandbox /home/user/raw; sha256sum + ffprobe (read-only, no re-encode). Project listing confirmed all 10 placements with status 'uploaded'.",
+    "total_bytes": 806758900,
+    "total_duration_s": 74.575
+  }
 }
