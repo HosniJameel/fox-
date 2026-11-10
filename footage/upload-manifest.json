@@ -1,0 +1,34 @@
+{
+  "project": {
+    "name": "RAW Footage – Commercial Edit",
+    "project_id": "d0ab61ba-6992-4d82-9b0e-aacd418b1dbe",
+    "folder_id": "d0ab61ba-6992-4d82-9b0e-aacd418b1dbe",
+    "workspace_id": "00464b6b-d056-48e4-83ba-43a1b5c29ffe"
+  },
+  "target_uploads": 10,
+  "rules": "One video per upload widget. Before adding a file, check filename and media_id against 'uploads' to prevent duplicates. Source files are never re-encoded.",
+  "uploads": [
+    {
+      "n": 1,
+      "filename": "C2707.MP4",
+      "media_id": "315971ed-5b50-42b1-b222-de1809ee70ca",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/315971ed-5b50-42b1-b222-de1809ee70ca.mp4",
+      "uploaded_at_utc": "2026-11-10",
+      "project_placement_id": "dc21c1d7-2e58-44fe-bee8-563ba537bb5f",
+      "sandbox_verified": false,
+      "sha256": null
+    }
+  ],
+  "unassigned_library_videos": [
+    {
+      "media_id": "50220dc1-a06a-4aa3-93bd-c13636a2ec4f",
+      "filename": null,
+      "note": "Found in Higgsfield video library, original filename unknown. Not added to project yet."
+    },
+    {
+      "media_id": "460ffc61-4363-4b0e-8149-bf603712855a",
+      "filename": null,
+      "note": "Found in library, filename unknown. User asked to use it as a generation reference; not added to project."
+    }
+  ]
+}
