@@ -161,5 +161,18 @@
     "method": "Downloaded each media URL into Higgsfield sandbox /home/user/raw; sha256sum + ffprobe (read-only, no re-encode). Project listing confirmed all 10 placements with status 'uploaded'.",
     "total_bytes": 806758900,
     "total_duration_s": 74.575
-  }
+  },
+  "drafts": [
+    {
+      "version": "v1",
+      "filename": "Reel_Draft_v1.mp4",
+      "media_id": "7b4e6c48-8986-4d9f-b5b8-e4f0d66ef891",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/7b4e6c48-8986-4d9f-b5b8-e4f0d66ef891.mp4",
+      "project_placement_id": "7f0513f5-6884-4ccf-a49f-6e87698519dd",
+      "sha256": "2b00684865083fa838f95f6ee084007133419ad4faba1fa1df1f57eb052d4068",
+      "spec": "1080x1920 H.264 High 23.976fps CRF16, AAC 320k 48kHz stereo, 20.98s, -14.1 LUFS / -1.5 dBTP",
+      "date": "2026-11-10",
+      "sandbox_project_files": "/home/user/work (build.py, render_caps.js, caps.json, transcript.json, fonts/)"
+    }
+  ]
 }
