@@ -27,6 +27,16 @@
       "project_placement_id": "18fb106b-63c8-46b2-a217-03f3d2c6692a",
       "sandbox_verified": false,
       "sha256": null
+    },
+    {
+      "n": 3,
+      "filename": "C2709.MP4",
+      "media_id": "32b70a82-45f1-4628-9e0c-941f871bb987",
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Jj9xwcASe4VYWUG5b6NeAEcPRj/32b70a82-45f1-4628-9e0c-941f871bb987.mp4",
+      "uploaded_at_utc": "2026-11-10",
+      "project_placement_id": "66706a05-2f20-4bf2-b504-7c8ad4e8a523",
+      "sandbox_verified": false,
+      "sha256": null
     }
   ],
   "unassigned_library_videos": [
