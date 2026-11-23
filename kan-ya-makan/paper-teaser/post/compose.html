@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="utf-8">
+<!-- KAN paper teaser compositor: one frame = window.render(f). 240 frames @ 30 fps, 1080x1920. -->
+<style>
+@font-face{font-family:AR;src:url(aref-ruqaa-arabic-700-normal.woff2) format('woff2');font-weight:700}
+@font-face{font-family:ARL;src:url(aref-ruqaa-latin-700-normal.woff2) format('woff2');font-weight:700}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}
+#cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:540px 900px}
+#bg{position:absolute;left:0;top:-7px;width:1080px;height:1935px}
+.line{position:absolute;left:100px;width:884px;display:flex;flex-direction:row;justify-content:center;align-items:baseline;gap:0;font-family:AR,ARL,serif;font-weight:700;color:#2A1A11;white-space:nowrap}
+.w{display:inline-block;mix-blend-mode:multiply;filter:url(#ink) blur(.3px);padding:0 2px}
+.sp{display:inline-block}
+#l1{top:560px;font-size:150px;line-height:1.6}
+#l2{top:845px;font-size:84px;line-height:1.7}
+#strike{position:absolute;left:0;top:0;overflow:visible;mix-blend-mode:multiply;filter:url(#ink)}
+#logoWrap{position:absolute;left:426px;top:1170px;width:232px;height:220px;mix-blend-mode:multiply}
+#logo{width:232px;height:220px;display:block;filter:url(#ink)}
+#fade{position:absolute;inset:0;background:#000}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+<div id="cam">
+  <img id="bg" src="../gen/plate_a.png">
+  <div class="line" id="l1" dir="rtl"><span class="w" id="w1a">كان</span><span class="sp" style="width:34px"></span><span class="w" id="w1b">فكرة.</span></div>
+  <div class="line" id="l2" dir="rtl"><span class="w" id="w2a">والفكرة</span><span class="sp" style="width:20px"></span><span class="w" id="w2b">جاي</span><span class="sp" style="width:20px"></span><span class="w" id="w2c">يصير</span><span class="sp" style="width:20px"></span><span class="w" id="w2d">إلها</span><span class="sp" style="width:20px"></span><span class="w" id="w2e">مكان</span></div>
+  <svg id="strike" width="1080" height="1920"><path id="sp" d="" fill="none" stroke="#2A1A11" stroke-width="12" stroke-linecap="round"/></svg>
+  <div id="logoWrap"><img id="logo" src="kan-logo-ink.png"></div>
+</div>
+<div id="fade"></div>
+<script>
+const $=id=>document.getElementById(id), cl=x=>x<0?0:x>1?1:x;
+const io=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, out=t=>1-Math.pow(1-t,3);
+// writing windows (frames). Line 2 windows are filled in by layout() proportionally to word width.
+const W={w1a:[10,26],w1b:[31,57]};
+const STRIKE=[76,94], LINE2=[105,182], LOGO=[190,222];
+let pathLen=0;
+window.layout=()=>{
+  // strike path across «فكرة.» only (excluding the period: the word body)
+  const r=$('w1b').getBoundingClientRect();
+  const x1=r.right-6, x2=r.left+30, y=r.top+r.height*0.56;
+  $('sp').setAttribute('d',`M ${x1} ${y+3} C ${x1-(x1-x2)*.3} ${y-5}, ${x1-(x1-x2)*.65} ${y+6}, ${x2} ${y-2}`);
+  pathLen=$('sp').getTotalLength();
+  $('sp').style.strokeDasharray=pathLen;
+  const ids=['w2a','w2b','w2c','w2d','w2e'], ws=ids.map(i=>$(i).getBoundingClientRect().width);
+  const gap=3, total=LINE2[1]-LINE2[0]-gap*(ids.length-1), sum=ws.reduce((a,b)=>a+b,0);
+  let t=LINE2[0];
+  ids.forEach((id,i)=>{const d=Math.round(total*ws[i]/sum); W[id]=[t,t+d]; t+=d+gap;});
+  W.w2e[1]=LINE2[1];
+  return {W, strike:[x1,x2,y], len:pathLen};
+};
+function writeStyle(el,[a,b],f){
+  const p=io(cl((f-a)/(b-a)));
+  const m=p*118, g=`linear-gradient(to left,#000 ${m-18}%,transparent ${m}%)`;
+  const wet=1-cl((f-b)/12);                       // wet ink darkens, then dries
+  el.style.webkitMaskImage = p>=1?'none':g; el.style.maskImage = p>=1?'none':g;
+  el.style.opacity = p<=0?0:(0.86+0.12*wet).toFixed(3);
+}
+window.render=(f,bgSrc)=>{
+  if(bgSrc && $('bg').getAttribute('src')!==bgSrc) $('bg').setAttribute('src',bgSrc);
+  const p=f/239;
+  $('cam').style.transform=`translate(${-4*p}px,${-6*p}px) scale(${1+0.035*io(p)})`;
+  $('fade').style.opacity=(1-io(cl(f/8))).toFixed(3);
+  for(const id in W) writeStyle($(id),W[id],f);
+  const s=io(cl((f-STRIKE[0])/(STRIKE[1]-STRIKE[0])));
+  $('sp').style.strokeDashoffset=(pathLen*(1-s)).toFixed(2);
+  $('sp').style.opacity = s<=0?0:(0.86+0.12*(1-cl((f-STRIKE[1])/12))).toFixed(3);
+  const l=out(cl((f-LOGO[0])/(LOGO[1]-LOGO[0])));
+  const r=20+l*140;
+  const lw=$('logoWrap');
+  lw.style.webkitMaskImage=lw.style.maskImage=`radial-gradient(circle at 50% 55%,#000 ${r-30}%,transparent ${r}%)`;
+  lw.style.opacity=(l*0.92).toFixed(3);
+  $('logo').style.transform=`scale(${1.015-0.015*l})`;
+};
+</script></body></html>

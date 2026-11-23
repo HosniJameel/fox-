@@ -1,0 +1,16 @@
+stem	frame_in	frame_out	tc_in	tc_out	element	source	synced_to
+Music	0	102	00:00:00	00:03:12	Intro pad · G major (synth)	synthesised	the first line; hands over to the score
+SFX	0	240	00:00:00	00:08:00	Quiet study room tone (synth)	synthesised	the whole shot
+SFX	1	28	00:00:01	00:00:28	Paper settling	Mirelo · job be43026e	the shot fades in on the sheet
+SFX	10	26	00:00:10	00:00:26	Pen writing «كان»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+SFX	31	57	00:01:01	00:01:27	Pen writing «فكرة.»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+Music	48	240	00:01:18	00:08:00	Score · ElevenLabs Music v2.5 (piano, oud, pads)	Higgsfield job e8268f51	builds under the strike, blooms as «مكان» completes, peaks into the logo
+SFX	64	76	00:02:04	00:02:16	Light air lift into the strike (synth)	synthesised	transition accent
+SFX	76	94	00:02:16	00:03:04	Decisive pen strike	Mirelo · job 5a2c4561	the line crossing out «فكرة»
+SFX	105	124	00:03:15	00:04:04	Pen writing «والفكرة»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+SFX	127	139	00:04:07	00:04:19	Pen writing «جاي»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+SFX	142	156	00:04:22	00:05:06	Pen writing «يصير»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+SFX	159	168	00:05:09	00:05:18	Pen writing «إلها»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+SFX	171	182	00:05:21	00:06:02	Pen writing «مكان»	Mirelo · job 4494ac61 (sliced)	that word's ink reveal
+Music	190	240	00:06:10	00:08:00	Warm low G under the logo (synth)	synthesised	logo
+SFX	190	240	00:06:10	00:08:00	Logo reveal: soft G/D bell + airy shimmer	synthesised bell + Mirelo job 1fe7f7fa	the logo's ink appears
