@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:AR;src:url(aref-ruqaa-arabic-700-normal.woff2) format('woff2');font-weight:700}
+@font-face{font-family:ARL;src:url(aref-ruqaa-latin-700-normal.woff2) format('woff2');font-weight:700}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}
+#cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:540px 770px}
+#plate{position:absolute;left:0;top:-7px;width:1080px;height:1935px}
+#ink{position:absolute;left:0;right:0;top:640px;text-align:center;font-family:AR,ARL,serif;font-weight:700;font-size:150px;line-height:1.6;color:#2A1A11;mix-blend-mode:multiply;opacity:.9;transform:rotate(-1.4deg);text-shadow:0 0 1.2px rgba(42,26,17,.55);filter:blur(.35px)}
+#light{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 85% 35%,rgba(255,205,150,.9),rgba(255,205,150,0) 70%);mix-blend-mode:soft-light}
+#fade{position:absolute;inset:0;background:#000}
+</style></head><body>
+<div id="cam">
+  <img id="plate" src="../gen/paper_a.png">
+  <div id="ink" dir="rtl">كان فكرة.</div>
+</div>
+<div id="light"></div>
+<div id="fade"></div>
+<script>
+const io=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, cl=x=>x<0?0:x>1?1:x;
+window.render=f=>{
+  const p=io(cl(f/89));
+  document.getElementById('cam').style.transform=`translate(${-6*p}px,${-10*p}px) scale(${1+0.10*p})`;
+  document.getElementById('light').style.opacity=(0.18+0.05*Math.sin(f/9)).toFixed(3);
+  document.getElementById('fade').style.opacity=(1-io(cl(f/12))).toFixed(3);
+};
+</script></body></html>

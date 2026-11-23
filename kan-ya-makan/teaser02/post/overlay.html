@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ar"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:RK;src:url(reem-kufi-arabic-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:RKL;src:url(reem-kufi-latin-600-normal.woff2) format('woff2');font-weight:600}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:transparent}
+#flash{position:absolute;inset:0;background:rgb(255,232,200);opacity:0}
+#scrim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(35,18,12,0) 38%,rgba(35,18,12,.62) 55%,rgba(35,18,12,.80) 75%,rgba(35,18,12,.88) 100%);opacity:0}
+#slogan{position:absolute;left:0;right:0;top:1050px;margin:0;text-align:center;font-family:RK,RKL,sans-serif;font-weight:600;font-size:64px;line-height:1.6;color:#F0DDBE;text-shadow:0 2px 14px rgba(20,10,6,.45);opacity:0}
+#logo{position:absolute;left:390px;top:1240px;width:300px;height:285px;opacity:0}
+</style></head><body>
+<div id="flash"></div><div id="scrim"></div>
+<p id="slogan" dir="rtl">والفكرة جاي يصير إلها مكان.</p>
+<img id="logo" src="kan-logo.png">
+<script>
+const cl=x=>x<0?0:x>1?1:x, out=t=>1-Math.pow(1-t,3), io=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const $=id=>document.getElementById(id);
+window.render=f=>{
+  const fl = f<90 ? io(cl((f-85)/5)) : 1-io(cl((f-90)/6));
+  $('flash').style.opacity=(0.32*fl).toFixed(3);
+  $('scrim').style.opacity=io(cl((f-166)/22)).toFixed(3);
+  const s=out(cl((f-178)/24)), so=io(cl((f-178)/18));
+  $('slogan').style.cssText+=`;opacity:${so};transform:translateY(${26*(1-s)}px);filter:blur(${6*(1-s)}px)`;
+  const l=out(cl((f-204)/22));
+  $('logo').style.cssText+=`;opacity:${l};transform:translateY(${12*(1-l)}px) scale(${.96+.04*l})`;
+};
+</script></body></html>

@@ -1,0 +1,22 @@
+stem	frame_in	frame_out	tc_in	tc_out	element	synced_to
+Music	0	95	00:00:00	00:03:05	Pad · D minor add9 (the idea)	paper scene
+SFX	0	90	00:00:00	00:03:00	Quiet study room tone	paper scene
+SFX	0	30	00:00:00	00:01:00	Intro tone (very low D)	opening
+SFX	3	60	00:00:03	00:02:00	Paper movement texture ×2	the sheet in the light, the push-in
+Music	10	50	00:00:10	00:01:20	Piano D5	paper settles in the light
+Music	40	80	00:01:10	00:02:20	Piano A4	push-in
+Music	68	108	00:02:08	00:03:18	Piano F5	approaching the words
+SFX	75	103	00:02:15	00:03:13	Reverse swell → tonal air	the match cut paper → oak
+Music	87	153	00:02:27	00:05:03	Pad · B♭ add9 lift (becoming real)	the cut to the craftsman
+Music	90	150	00:03:00	00:05:00	Oud pulse D–A–D–F–E–D–A–B♭	the craftsman at work
+SFX	90	240	00:03:00	00:08:00	Workshop ambience (soft, wide)	the real space
+SFX	93	146	00:03:03	00:04:26	Graphite on oak + steel-ruler tick	the pencil line
+Music	148	240	00:04:28	00:08:00	Pad · D major (resolution)	the reveal
+Music	150	190	00:05:00	00:06:10	Piano chord D–F♯–A	cut to the crafted detail
+SFX	150	162	00:05:00	00:05:12	Soft air + gentle wood resonance	cut to the crafted detail
+Music	178	240	00:05:28	00:08:00	Oud Hijaz descent A–G–F♯–E♭ → D	slogan in, resolves on the logo
+SFX	178	240	00:05:28	00:08:00	Warm tonal shimmer	slogan rises in
+Music	204	240	00:06:24	00:08:00	Piano D3 + D2 under the logo	logo
+Music	204	240	00:06:24	00:08:00	Warm low D tone	logo
+SFX	204	240	00:06:24	00:08:00	Soft bell accent D6/A6	logo
+Music	212	240	00:07:02	00:08:00	Piano D6 air	logo settles
