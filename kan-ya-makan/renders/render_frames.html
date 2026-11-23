@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:RK;src:url(reem-kufi-arabic-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:RK;src:url(reem-kufi-arabic-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:RKL;src:url(reem-kufi-latin-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:RKL;src:url(reem-kufi-latin-600-normal.woff2) format('woff2');font-weight:600}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#391D15}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:radial-gradient(ellipse 85% 70% at 50% 45%,#43231A 0%,#391D15 55%,#2A140E 100%)}
+.ib{display:inline-block}
+.dot{position:absolute;left:7px;bottom:4px;width:14px;height:14px;background:#D2B48C}
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg width="1080" height="1920" style="position:absolute;left:0;top:0;opacity:.10;mix-blend-mode:overlay">
+    <filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="1080" height="1920" filter="url(#g)"/>
+  </svg>
+  <div id="frame" style="position:absolute;left:36px;top:36px;right:36px;bottom:36px;border:2px solid #D2B48C;opacity:0"></div>
+
+  <div id="hero" style="position:absolute;left:0;right:0;top:800px;height:320px;display:flex;justify-content:center;align-items:center">
+    <div dir="rtl" style="display:flex;flex-direction:row;align-items:baseline;font-family:RK,RKL,sans-serif;font-weight:600;font-size:120px;line-height:1.8;color:#D2B48C;white-space:nowrap">
+      <span id="w1" class="ib">كان</span>
+      <span class="ib" style="width:36px"></span>
+      <span id="w2" class="ib">يا</span>
+      <span class="ib" style="width:36px"></span>
+      <span id="w3" style="display:inline-flex;align-items:baseline">
+        <span id="m" class="ib">م&zwj;</span>
+        <span id="aw" class="ib"><span id="a" class="ib">&zwj;ا</span></span>
+      </span>
+      <span id="gap" class="ib" style="width:36px"></span>
+      <span id="w4" style="display:inline-grid">
+        <span id="k1" style="grid-area:1/1;justify-self:end">كان</span>
+        <span id="k2" style="grid-area:1/1;justify-self:end;opacity:0">&zwj;كان</span>
+      </span>
+      <span style="display:inline-flex;align-items:baseline;padding-right:6px">
+        <span class="ib" style="width:28px;height:24px;position:relative"><span id="d1" class="dot"></span></span>
+        <span id="d2w" class="ib" style="width:28px;height:24px;position:relative"><span id="d2" class="dot"></span></span>
+        <span id="d3w" class="ib" style="width:28px;height:24px;position:relative"><span id="d3" class="dot"></span></span>
+      </span>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:450px;top:1046px;width:180px;height:3px;transform:rotate(-12.7deg)"><div id="rule" style="width:180px;height:3px;border-radius:2px;background:#D2B48C;transform-origin:100% 50%;opacity:0"></div></div>
+  <p id="slogan" dir="rtl" style="position:absolute;left:0;right:0;top:1080px;margin:0;text-align:center;font-family:RK,RKL,sans-serif;font-weight:400;font-size:58px;line-height:1.6;color:#C4A881;opacity:0">هالمرة الحكاية إلها مكان.</p>
+  <img id="logo" src="logo.svg" style="position:absolute;left:400px;top:1272px;width:280px;height:262px;opacity:0">
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+let M = null;
+window.measure = () => { M = { a: $('a').offsetWidth, k1: $('k1').offsetWidth, k2: $('k2').offsetWidth }; return M; };
+const cl = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+const out = (t) => 1 - Math.pow(1 - t, 4);
+const io = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const hx = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, t) => { const A = hx(a), B = hx(b); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')'; };
+const SAND = '#D2B48C', COP = '#E3976E', HI = '#F0DDBE';
+function css(el, s) { el.style.cssText = el.dataset.base + ';' + s; }
+document.querySelectorAll('[id]').forEach((el) => { el.dataset.base = el.getAttribute('style') || ''; });
+
+window.render = (f) => {
+  const r = (a, b) => cl((f - a) / (b - a));
+  const reveal = (i) => {
+    const s0 = 6 + 8 * i, p = out(r(s0, s0 + 30)), o = io(r(s0, s0 + 18)), mk = p * 140;
+    const g = `linear-gradient(to left,#000 ${mk - 40}%,transparent ${mk}%)`;
+    return `opacity:${o};transform:translateY(${14 * (1 - p)}px);filter:blur(${8 * (1 - p)}px);` + (p >= 1 ? '' : `-webkit-mask-image:${g};mask-image:${g};`);
+  };
+  const tint = io(r(60, 70)), back = io(r(102, 110));
+  const dip = io(r(60, 66)) * (1 - io(r(66, 72)));
+  const lift = io(r(68, 94));
+  const pw = io(r(74, 102)), pg = io(r(70, 102)), k = r(95, 101);
+  const extra = M.k2 - M.k1;
+  const pd = io(r(80, 98)), pdw = io(r(86, 104));
+  const dIn = (i) => out(r(46 + 5 * i, 58 + 5 * i));
+  const pulse = Math.sin(Math.PI * r(100, 114));
+  const pr = io(r(122, 150)), pv = out(r(138, 166)), ps = out(r(146, 180)), pso = io(r(146, 170)), pl = out(r(170, 196));
+  const dot = (i) => `opacity:${dIn(i) * (1 - (i ? pd : 0))};transform:translateY(${i ? (20 + 8 * i) * pd : 0}px) rotate(45deg) scale(${0.4 + 0.6 * dIn(i) + (i ? 0 : 0.4 * pulse)});`;
+
+  css($('frame'), `opacity:${0.28 * out(r(0, 30))}`);
+  css($('hero'), `transform:translateY(${-80 * pr}px)`);
+  css($('w1'), reveal(0)); css($('w2'), reveal(1)); css($('w3'), reveal(2));
+  css($('w4'), reveal(3) + `margin-right:${-extra * (1 - pg)}px`);
+  css($('m'), `color:${mix(SAND, COP, tint * (1 - back))}`);
+  css($('aw'), `width:${M.a * (1 - pw)}px`);
+  css($('a'), `color:${mix(SAND, COP, tint)};opacity:${1 - io(r(72, 92))};transform-origin:50% 85%;transform:translateY(${6 * dip - 92 * lift}px) scale(${1 - 0.35 * lift},${1 + 0.12 * lift});filter:blur(${14 * io(r(72, 94))}px)`);
+  css($('gap'), `width:${36 * (1 - pg)}px`);
+  css($('k1'), `opacity:${1 - k}`); css($('k2'), `opacity:${k}`);
+  css($('d1'), dot(0) + `background:${mix(SAND, HI, io(r(96, 112)))}`);
+  css($('d2'), dot(1)); css($('d3'), dot(2));
+  css($('d2w'), `width:${28 * (1 - pdw)}px`); css($('d3w'), `width:${28 * (1 - pdw)}px`);
+  css($('rule'), `opacity:${io(r(138, 146))};transform:scaleX(${pv})`);
+  css($('slogan'), `opacity:${pso};transform:translateY(${24 * (1 - ps)}px);filter:blur(${8 * (1 - ps)}px)`);
+  css($('logo'), `opacity:${pl};transform:translateY(${12 * (1 - pl)}px) scale(${0.96 + 0.04 * pl})`);
+};
+</script>
+</body>
+</html>

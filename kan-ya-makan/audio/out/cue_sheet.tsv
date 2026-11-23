@@ -1,0 +1,29 @@
+stem	frame_in	frame_out	tc_in	tc_out	element	synced_to
+Music	0	70	00:00:00	00:02:10	Pad · D minor (nostalgia)	opening, under the reveals
+SFX	0	210	00:00:00	00:07:00	Room tone (warm, low-passed)	fades in 0–15, out 192–210
+SFX	1	22	00:00:01	00:00:22	Paper texture	hairline frame breathes in
+SFX	6	48	00:00:06	00:01:18	Pen strokes ×4 (f6/14/22/30), panned R→L	each word's mask wipe
+Music	10	55	00:00:10	00:01:25	Piano D5	first word lands
+Music	35	80	00:01:05	00:02:20	Piano A4	between reveals
+SFX	46	60	00:01:16	00:02:00	Dot taps D6 / F6 / A6	each diamond lands
+Music	53	98	00:01:23	00:03:08	Piano F5	line complete
+SFX	53	68	00:01:23	00:02:08	Reverse swell	builds into the morph, peaks as the alef lifts
+Music	57	80	00:01:27	00:02:20	Oud A3 pickup	the «ما» flag warms
+Music	59	104	00:01:29	00:03:14	Pad · B♭/D swell (anticipation)	rises through the morph
+SFX	68	94	00:02:08	00:03:04	Granular sparkle + rising air	alef lifts, narrows, blurs out
+SFX	70	102	00:02:10	00:03:12	Twin whooshes converging to centre (speed-driven)	meem slides left, kaf slides right, the gap closes
+Music	74	97	00:02:14	00:03:07	Oud D4 risha tremolo, crescendo	tension while the gap closes; stops on contact
+SFX	80	98	00:02:20	00:03:08	Two falling glints	dots 2–3 drop and fade
+Music	98	210	00:03:08	00:07:00	Pad · D major, F→F♯ lift (the new place)	lands on the join
+SFX	100	104	00:03:10	00:03:14	Ink tap (click + wood + soft thump)	meem and kaf lock together
+SFX	100	150	00:03:10	00:05:00	Tonal ting D6/A6	full stop brightens and pulses
+Music	102	147	00:03:12	00:04:27	Piano chord D–F♯–A + D5	morph completes: musical lift
+SFX	122	152	00:04:02	00:05:02	Air rise + soft felt impact	«كان يا مكان.» rises and settles
+SFX	138	166	00:04:18	00:05:16	Fine hiss panned R→L	fatha rule draws right to left
+Music	146	210	00:04:26	00:07:00	Oud Hijaz descent A–G–F♯–E♭–D	slogan in → resolves on the logo
+SFX	146	200	00:04:26	00:06:20	Warm tonal shimmer + sparkle	slogan rises in
+Music	150	195	00:05:00	00:06:15	Piano A5 sparkle	phrase settles
+SFX	168	210	00:05:18	00:07:00	Soft air bloom	logo settles
+Music	170	210	00:05:20	00:07:00	Piano D3 + D2 bass	logo appears
+Music	170	210	00:05:20	00:07:00	Warm low D tone	logo
+Music	176	210	00:05:26	00:07:00	Piano D6 air	logo settles
